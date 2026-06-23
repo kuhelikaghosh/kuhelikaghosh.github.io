@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  KUHELIKA GHOSH  ·  academic job-market website  ·  single self-contained file
+  ============================================================================
+  STILL TO ADD (search for "ADD-"):
+    • headshot.jpg   → drop your photo next to this file with that exact name
+    • ADD-SCHOLAR     → your Google Scholar profile URL
+    • ADD-LINKEDIN    → your LinkedIn URL
+    • ADD-JMP-ABSTRACT→ paste your real abstract + headline result
+  cv.pdf is already wired up (it's your uploaded CV).
+
+  TO PUBLISH (free):
+    • GitHub Pages: new repo → upload index.html, cv.pdf, headshot.jpg → enable Pages
+    • Netlify: drag this folder onto app.netlify.com/drop
+    • UGA web space: upload to your ~/public_html
+  ============================================================================
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kuhelika Ghosh — Agricultural &amp; Applied Economics</title>
+<meta name="description" content="Kuhelika Ghosh is an applied economist and Ph.D. candidate in Agricultural & Applied Economics at the University of Georgia, on the 2026–2027 job market. Research on water and energy policy, environmental and resource economics, and stated-preference methods." />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cg fill='none' stroke='%232d4a33' stroke-width='1.6'%3E%3Cpath d='M2 11 C9 5,15 15,22 10 S31 6,34 12'/%3E%3Cpath d='M2 18 C9 12,15 22,22 17 S31 13,34 19'/%3E%3Cpath d='M2 25 C9 19,15 29,22 24 S31 20,34 26'/%3E%3C/g%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --paper:#f6f4ee;
+    --paper-2:#efece3;
+    --ink:#211e18;
+    --muted:#6b6759;
+    --field:#2d4a33;
+    --field-deep:#1f3324;
+    --wheat:#bf9b46;
+    --line:rgba(33,30,24,.14);
+    --line-soft:rgba(33,30,24,.08);
+    --card:#fbfaf6;
+
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+
+    --wrap:1060px;
+    --gap:clamp(64px,9vw,116px);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:400;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  a{color:inherit}
+  ::selection{background:var(--field);color:var(--paper)}
+
+  .skip{
+    position:absolute;left:-999px;top:0;z-index:100;
+    background:var(--field);color:var(--paper);padding:10px 16px;
+    font-family:var(--mono);font-size:.8rem;border-radius:0 0 6px 0;
+  }
+  .skip:focus{left:0}
+
+  :focus-visible{outline:2.5px solid var(--field);outline-offset:3px;border-radius:2px}
+
+  .wrap{width:min(var(--wrap),92vw);margin-inline:auto}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.72rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--field);
+    display:inline-flex;align-items:center;gap:.6em;
+    margin:0 0 1.1rem;
+  }
+  .eyebrow::before{
+    content:"";width:26px;height:1px;background:var(--field);opacity:.6;
+  }
+
+  /* ===================== NAV ===================== */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:color-mix(in srgb,var(--paper) 88%,transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    height:62px;
+  }
+  .brand{
+    font-family:var(--mono);font-size:.82rem;letter-spacing:.04em;
+    text-decoration:none;display:flex;align-items:center;gap:.6em;
+    color:var(--ink);
+  }
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--field);flex:none}
+  .navlinks{display:flex;gap:2px;align-items:center}
+  .navlinks a{
+    text-decoration:none;font-size:.9rem;color:var(--muted);
+    padding:8px 13px;border-radius:6px;transition:color .18s,background .18s;
+  }
+  .navlinks a:hover{color:var(--ink);background:var(--paper-2)}
+  .navlinks a.cv{
+    color:var(--field);border:1px solid var(--line);margin-left:8px;
+  }
+  .navlinks a.cv:hover{background:var(--field);color:var(--paper);border-color:var(--field)}
+  .menu-btn{
+    display:none;background:none;border:1px solid var(--line);
+    border-radius:7px;padding:8px 11px;cursor:pointer;
+    font-family:var(--mono);font-size:.8rem;color:var(--ink);
+  }
+
+  @media(max-width:720px){
+    .menu-btn{display:block}
+    .navlinks{
+      position:absolute;top:62px;left:0;right:0;
+      flex-direction:column;align-items:stretch;gap:0;
+      background:var(--paper);border-bottom:1px solid var(--line);
+      padding:8px 4vw 16px;
+      display:none;
+    }
+    .navlinks.open{display:flex}
+    .navlinks a{padding:13px 12px;border-radius:8px}
+    .navlinks a.cv{margin:8px 0 0;text-align:center}
+  }
+
+  /* ===================== HERO ===================== */
+  .hero{position:relative;overflow:hidden;padding:clamp(48px,8vw,86px) 0 var(--gap)}
+  .hero-contours{
+    position:absolute;inset:0;width:100%;height:100%;
+    pointer-events:none;z-index:0;
+    color:var(--field);opacity:.16;
+    -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 55%,transparent 100%);
+            mask-image:linear-gradient(180deg,#000 0%,#000 55%,transparent 100%);
+  }
+  .hero .wrap{position:relative;z-index:1}
+  .hero-grid{
+    display:grid;grid-template-columns:1fr auto;gap:clamp(28px,5vw,64px);
+    align-items:center;
+  }
+  h1.name{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(2.9rem,7.2vw,5.1rem);
+    line-height:.98;
+    letter-spacing:-.02em;
+    margin:.2rem 0 .9rem;
+    font-optical-sizing:auto;
+  }
+  .role{
+    font-size:1.05rem;color:var(--muted);margin:0 0 1.5rem;
+    max-width:36ch;
+  }
+  .role strong{color:var(--ink);font-weight:500}
+  .lede{
+    font-family:var(--serif);font-weight:400;
+    font-size:clamp(1.12rem,2.2vw,1.42rem);
+    line-height:1.5;max-width:42ch;color:var(--ink);
+    margin:0 0 2rem;
+  }
+  .hero-cta{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{
+    display:inline-flex;align-items:center;gap:.55em;
+    font-family:var(--sans);font-size:.92rem;font-weight:500;
+    text-decoration:none;padding:11px 18px;border-radius:8px;
+    border:1px solid var(--field);transition:all .18s;
+  }
+  .btn.solid{background:var(--field);color:var(--paper)}
+  .btn.solid:hover{background:var(--field-deep);border-color:var(--field-deep)}
+  .btn.ghost{color:var(--field);background:transparent}
+  .btn.ghost:hover{background:var(--field);color:var(--paper)}
+  .btn svg{width:15px;height:15px}
+
+  .photo{
+    width:clamp(168px,22vw,236px);aspect-ratio:4/5;flex:none;
+    border-radius:12px;overflow:hidden;position:relative;
+    background:var(--paper-2);border:1px solid var(--line);
+    box-shadow:0 18px 40px -28px rgba(33,30,24,.5);
+  }
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .photo .ph{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:.5rem;
+    font-family:var(--mono);font-size:.72rem;color:var(--muted);
+    text-align:center;padding:0 14px;
+  }
+  .photo .ph svg{width:34px;height:34px;color:var(--field);opacity:.55}
+
+  @media(max-width:680px){
+    .hero-grid{grid-template-columns:1fr}
+    .photo{order:-1;width:148px}
+  }
+
+  /* ===================== SECTIONS ===================== */
+  main section{padding-block:var(--gap)}
+  main section + section{border-top:1px solid var(--line-soft)}
+  .sec-head{max-width:62ch;margin-bottom:clamp(34px,5vw,52px)}
+  h2{
+    font-family:var(--serif);font-weight:500;
+    font-size:clamp(1.9rem,4vw,2.65rem);line-height:1.05;
+    letter-spacing:-.015em;margin:0;
+  }
+  .sec-head p{color:var(--muted);margin:.85rem 0 0;font-size:1.02rem}
+
+  .prose p{max-width:64ch;margin:0 0 1.1rem}
+  .prose p:last-child{margin-bottom:0}
+
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:1.4rem}
+  .chip{
+    font-size:.84rem;padding:6px 13px;border-radius:999px;
+    background:var(--paper-2);border:1px solid var(--line-soft);color:var(--ink);
+  }
+
+  /* job market paper card */
+  .jmp{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:clamp(22px,3.4vw,38px);
+    position:relative;overflow:hidden;
+  }
+  .jmp::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+    background:linear-gradient(180deg,var(--field),var(--wheat));
+  }
+  .jmp .eyebrow{color:var(--field)}
+  .jmp h3{
+    font-family:var(--serif);font-weight:600;
+    font-size:clamp(1.3rem,2.6vw,1.7rem);line-height:1.18;
+    margin:.1rem 0 .9rem;
+  }
+  .jmp .abstract{color:var(--ink);margin:0 0 1.3rem;max-width:68ch}
+  .meta{
+    font-family:var(--mono);font-size:.78rem;color:var(--muted);
+    margin:0 0 1.1rem;
+  }
+
+  .papers{margin-top:clamp(34px,5vw,48px)}
+  .papers .sub{
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);
+    padding-bottom:.7rem;border-bottom:1px solid var(--line);
+    margin:0 0 .4rem;
+  }
+  .paper{
+    padding:1.4rem 0;border-bottom:1px solid var(--line-soft);
+    display:grid;grid-template-columns:78px 1fr;gap:0 22px;align-items:baseline;
+  }
+  .paper .yr{font-family:var(--mono);font-size:.82rem;color:var(--field);padding-top:.15rem}
+  .paper .ptitle{font-family:var(--serif);font-weight:500;font-size:1.16rem;line-height:1.3;margin:0}
+  .paper .authors{color:var(--muted);font-size:.94rem;margin:.3rem 0 0}
+  .paper .authors .me{color:var(--ink);font-weight:500;border-bottom:1.5px solid var(--wheat)}
+  .paper .venue{font-style:italic;color:var(--ink)}
+  .paper .status{
+    display:inline-block;font-family:var(--mono);font-size:.72rem;
+    color:var(--field);background:var(--paper-2);
+    padding:2px 9px;border-radius:5px;margin-top:.55rem;
+  }
+  details.abs{margin-top:.6rem}
+  details.abs summary{
+    cursor:pointer;font-size:.86rem;color:var(--field);
+    font-family:var(--mono);list-style:none;display:inline-flex;align-items:center;gap:.4em;
+    width:max-content;
+  }
+  details.abs summary::-webkit-details-marker{display:none}
+  details.abs summary::before{content:"+";font-weight:600}
+  details.abs[open] summary::before{content:"\2013"}
+  details.abs p{font-size:.95rem;color:var(--muted);max-width:66ch;margin:.7rem 0 0}
+  .plinks{display:flex;flex-wrap:wrap;gap:14px;margin-top:.8rem}
+  .plinks a{
+    font-family:var(--mono);font-size:.78rem;color:var(--field);text-decoration:none;
+    border-bottom:1px solid transparent;transition:border-color .15s;
+  }
+  .plinks a:hover{border-color:var(--field)}
+
+  @media(max-width:560px){
+    .paper{grid-template-columns:1fr;gap:0}
+    .paper .yr{padding:0 0 .4rem}
+  }
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,56px)}
+  @media(max-width:720px){.cols{grid-template-columns:1fr;gap:40px}}
+  .listing{margin:0;padding:0;list-style:none}
+  .listing li{padding:1rem 0;border-bottom:1px solid var(--line-soft)}
+  .listing li:first-child{padding-top:0}
+  .listing .t{font-weight:500;display:block}
+  .listing .d{color:var(--muted);font-size:.92rem;font-family:var(--mono)}
+  .h3{
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--field);margin:0 0 1.1rem;
+  }
+  .block + .block{margin-top:2.2rem}
+  .tags{display:flex;flex-wrap:wrap;gap:7px}
+  .tags span{font-family:var(--mono);font-size:.76rem;padding:5px 10px;border-radius:6px;background:var(--paper-2);border:1px solid var(--line-soft)}
+
+  /* contact */
+  #contact{background:var(--field-deep);color:var(--paper-2);position:relative;overflow:hidden}
+  #contact .contours{
+    position:absolute;inset:0;color:var(--paper);opacity:.06;pointer-events:none;
+  }
+  #contact .wrap{position:relative;z-index:1}
+  #contact h2{color:var(--paper)}
+  #contact .eyebrow{color:var(--wheat)}
+  #contact .eyebrow::before{background:var(--wheat)}
+  .contact-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(30px,5vw,60px);margin-top:8px}
+  @media(max-width:680px){.contact-grid{grid-template-columns:1fr;gap:32px}}
+  .contact-grid p{color:rgba(246,244,238,.78);max-width:42ch}
+  .clinks{margin:0;padding:0;list-style:none}
+  .clinks li{border-bottom:1px solid rgba(246,244,238,.16)}
+  .clinks a{
+    display:flex;justify-content:space-between;align-items:center;gap:1rem;
+    padding:14px 2px;text-decoration:none;color:var(--paper-2);
+    font-size:1rem;transition:padding-left .2s,color .2s;
+  }
+  .clinks a:hover{padding-left:8px;color:#fff}
+  .clinks .k{font-family:var(--mono);font-size:.78rem;color:var(--wheat);letter-spacing:.06em}
+  .clinks .arr{color:var(--wheat);transition:transform .2s}
+  .clinks a:hover .arr{transform:translateX(4px)}
+
+  footer{padding:30px 0;font-family:var(--mono);font-size:.76rem;color:var(--muted)}
+  .foot-inner{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+
+<body>
+<a class="skip" href="#research">Skip to content</a>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top"><span class="dot"></span>Kuhelika Ghosh</a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="navlinks">Menu</button>
+    <nav class="navlinks" id="navlinks">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#contact">Contact</a>
+      <a class="cv" href="cv.pdf">CV &darr;</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="top">
+  <svg class="hero-contours" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="currentColor" stroke-width="1.4">
+      <path d="M-40 70 C 260 0,440 150,690 80 S 1080 -10,1260 90"/>
+      <path d="M-40 140 C 240 70,460 210,700 140 S 1080 60,1260 160"/>
+      <path d="M-40 215 C 250 150,450 280,690 215 S 1090 130,1260 235"/>
+      <path d="M-40 295 C 230 220,470 360,700 290 S 1070 210,1260 310"/>
+      <path d="M-40 380 C 260 300,440 450,690 380 S 1090 290,1260 400"/>
+      <path d="M-40 470 C 240 390,460 540,700 470 S 1080 380,1260 490"/>
+      <path d="M-40 560 C 250 480,450 630,690 560 S 1090 470,1260 580"/>
+    </g>
+  </svg>
+
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Agricultural &amp; Applied Economics</p>
+        <h1 class="name">Kuhelika Ghosh</h1>
+        <p class="role"><strong>Ph.D. Candidate</strong>, Department of Agricultural &amp; Applied Economics, University of Georgia &middot; On the 2026&ndash;2027 academic &amp; policy job market</p>
+        <p class="lede">I am an applied economist working on water and energy policy &mdash; studying how farmers, households, and utilities respond to resource scarcity using field experiments, stated-preference methods, and policy analysis.</p>
+        <div class="hero-cta">
+          <a class="btn solid" href="#jmp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            Job Market Paper
+          </a>
+          <a class="btn ghost" href="cv.pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+            Curriculum Vitae
+          </a>
+          <a class="btn ghost" href="mailto:kuhelika.ghosh@uga.edu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M4 6l8 6 8-6"/></svg>
+            Email
+          </a>
+        </div>
+      </div>
+
+      <!-- HEADSHOT: replace the .ph placeholder div with  <img src="headshot.jpg" alt="Kuhelika Ghosh"> -->
+      <figure class="photo">
+        <!-- <img src="headshot.jpg" alt="Kuhelika Ghosh"> -->
+        <div class="ph">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          Add headshot.jpg
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<main>
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">About</p>
+        <h2>Water, energy, and the policies that connect them</h2>
+      </div>
+
+      <div class="prose reveal" style="margin-bottom:2.6rem">
+        <p>I am an applied economist working on water and energy policy, and a Ph.D. candidate in Agricultural &amp; Applied Economics at the University of Georgia. My research examines how farmers, households, and utilities respond to resource scarcity and policy &mdash; drawing on both field-intensive and data-driven methods, including discrete choice experiments and other stated-preference approaches to non-market valuation.</p>
+        <p>Before beginning my doctoral studies, I trained and worked as a rural development professional and policy researcher &mdash; as a Pre-Doctoral Fellow with the IWMI&ndash;Tata Water Policy Program and as a research consultant with the International Water Management Institute in India. That work spanned irrigation management by public and private institutions, the water&ndash;energy&ndash;climate nexus, agricultural insurance, and sustainable farming practices, and it continues to shape the questions I ask today.</p>
+      </div>
+
+      <div class="reveal" style="margin-bottom:2.6rem">
+        <p class="h3">Research fields</p>
+        <div class="chips">
+          <span class="chip">Environmental Economics</span>
+          <span class="chip">Resource Economics</span>
+          <span class="chip">Water &amp; Energy Policy</span>
+          <span class="chip">Development Economics</span>
+          <span class="chip">Stated-Preference Methods</span>
+          <span class="chip">Non-Market Valuation</span>
+        </div>
+      </div>
+
+      <div class="cols reveal">
+        <div>
+          <p class="h3">Education</p>
+          <ul class="listing">
+            <li><span class="t">Ph.D., Agricultural &amp; Applied Economics</span><span class="d">University of Georgia &middot; 2022&ndash;present (expected 2027)</span></li>
+            <li><span class="t">PG Diploma, Rural Management</span><span class="d">Institute of Rural Management Anand (IRMA), India &middot; 2016&ndash;2018</span></li>
+            <li><span class="t">B.Tech, Instrumentation &amp; Control Engineering</span><span class="d">MAKAUT, West Bengal, India &middot; 2009&ndash;2013</span></li>
+          </ul>
+        </div>
+        <div>
+          <p class="h3">Selected experience</p>
+          <ul class="listing">
+            <li><span class="t">Research Consultant</span><span class="d">Intl. Water Management Institute, New Delhi &middot; 2021&ndash;2022</span></li>
+            <li><span class="t">Research Consultant</span><span class="d">Outline India, Gurugram &middot; 2021</span></li>
+            <li><span class="t">Pre-Doctoral Fellow</span><span class="d">IWMI&ndash;Tata Water Policy Program, Anand &middot; 2018&ndash;2020</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RESEARCH ===================== -->
+  <section id="research">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Research</p>
+        <h2>Papers &amp; publications</h2>
+        <p>Drafts and replication materials available on request. <span style="border-bottom:1.5px solid var(--wheat)">Underline</span> indicates my name in author lists.</p>
+      </div>
+
+      <!-- JOB MARKET PAPER -->
+      <div class="jmp reveal" id="jmp">
+        <p class="eyebrow">Job Market Paper</p>
+        <h3>Groundwater Irrigation Expansion and Its Impact on Utility Peak Load</h3>
+        <p class="meta">Utility-year panel, 2000&ndash;2024 &middot; Draft available on request</p>
+        <p class="abstract">Irrigation is a widely recognized adaptation to the agricultural productivity losses caused by climate change, and farmers across the United States are increasingly adopting groundwater irrigation as temperatures rise. Because these irrigation pumps are predominantly electric, this adaptation is also a growing source of electricity demand &mdash; yet the role of groundwater-based irrigation as a driver of utility peak load has received little quantitative attention, partly because utilities do not report agricultural consumption separately. I exploit exogenous variation in groundwater endowments, set by the geographic distribution of aquifers rather than current climate, to estimate how the number of active groundwater irrigation wells affects utility-level summer peak electricity demand. Using a utility-year panel spanning 2000&ndash;2024 that combines EIA operational data with spatial data on irrigation wells, I find that a 1% increase in irrigation wells is associated with a 0.092% increase in summer peak demand (p &lt; 0.001) &mdash; about 32 kW of additional peak load per well for the average utility. The results carry implications for grid planning and electricity pricing, and contribute to the literature on adaptation externalities by showing how private groundwater-irrigation decisions can impose costs through the energy system.</p>
+        <div class="plinks">
+          <a href="jmp.pdf">Download PDF &rarr;</a>
+          <a href="jmp-slides.pdf">Slides &rarr;</a>
+        </div>
+      </div>
+
+      <!-- WORKING PAPERS / IN PREPARATION -->
+      <div class="papers reveal">
+        <p class="sub">Working papers &amp; papers in preparation</p>
+
+        <div class="paper">
+          <div class="yr">2026</div>
+          <div>
+            <p class="ptitle">Economic Incentives for Groundwater Conservation: Evidence from a Discrete Choice Experiment in Punjab, India</p>
+            <p class="authors"><span class="me">Ghosh, K.</span> and J.D. Mullen</p>
+            <span class="status">In preparation</span>
+            <details class="abs"><summary>Summary</summary><p>A discrete choice experiment eliciting farmers' willingness to accept cash incentives to participate in voluntary groundwater conservation programs under varying climatic, water-availability, and payment conditions. [Replace with your abstract.]</p></details>
+          </div>
+        </div>
+
+        <div class="paper">
+          <div class="yr">2026</div>
+          <div>
+            <p class="ptitle">Valuing the Climate-Regulating Ecosystem Services of Levee Setbacks</p>
+            <p class="authors">Hasan, M.T., G. Stanford, M. Chambers, <span class="me">K. Ghosh</span>, S. Ferreira, C.E. Landry, B. Bledsoe, and B. Woodson</p>
+            <span class="status">In preparation</span>
+          </div>
+        </div>
+
+        <div class="paper">
+          <div class="yr">2026</div>
+          <div>
+            <p class="ptitle">Valuing Human Safety in Benefit&ndash;Cost Analyses</p>
+            <p class="authors">Stanford, G., M. Chambers, M.T. Hasan, <span class="me">K. Ghosh</span>, S. Ferreira, C.E. Landry, B. Bledsoe, and B. Woodson</p>
+            <span class="status">In preparation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PUBLICATIONS -->
+      <div class="papers reveal">
+        <p class="sub">Peer-reviewed publications</p>
+        <div class="paper">
+          <div class="yr">2020</div>
+          <div>
+            <p class="ptitle">Carbon Footprint of India's Groundwater Irrigation</p>
+            <p class="authors">Rajan, A. and <span class="me">K. Ghosh</span> &middot; <span class="venue">Carbon Management</span>, 11(3), 265&ndash;280.</p>
+            <div class="plinks"><a href="https://doi.org/10.1080/17583004.2020.1750264">Published version &rarr;</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONFERENCE PROCEEDINGS -->
+      <div class="papers reveal">
+        <p class="sub">Conference proceedings</p>
+        <div class="paper">
+          <div class="yr">2019</div>
+          <div>
+            <p class="ptitle">Assessing the Institutional Model of Piped Water Distribution for Irrigation in the Sardar Sarovar Project</p>
+            <p class="authors"><span class="me">Ghosh, K.</span> and G. Rai &middot; <span class="venue">3rd World Irrigation Forum</span>, Bali, Indonesia.</p>
+          </div>
+        </div>
+        <div class="paper">
+          <div class="yr">2019</div>
+          <div>
+            <p class="ptitle">Energy Productivity of Indian Agriculture: Are Energy-Guzzling Districts Generating Higher Agricultural Value?</p>
+            <p class="authors">Rajan, A. and <span class="me">K. Ghosh</span> &middot; <span class="venue">3rd World Irrigation Forum</span>, Bali, Indonesia.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SELECTED PRESENTATIONS -->
+      <div class="papers reveal">
+        <p class="sub">Selected presentations</p>
+        <div class="paper">
+          <div class="yr">2026</div>
+          <div>
+            <p class="ptitle">Economic Incentives for Groundwater Conservation: Evidence from a DCE in Punjab, India</p>
+            <p class="authors">Southern Agricultural Economics Association (SAEA) Annual Meeting &middot; Louisville, KY</p>
+          </div>
+        </div>
+        <div class="paper">
+          <div class="yr">2025</div>
+          <div>
+            <p class="ptitle">Groundwater Depletion as a Prisoner's Dilemma: A Game-Theoretic Analysis of Irrigation Water Use in Punjab</p>
+            <p class="authors">Georgia Water Resources Conference &middot; Athens, GA</p>
+          </div>
+        </div>
+        <div class="paper">
+          <div class="yr">2024</div>
+          <div>
+            <p class="ptitle">Managing Energy Usage for Groundwater Irrigation in India</p>
+            <p class="authors">Southern Agricultural Economics Association (SAEA) Annual Meeting &middot; Atlanta, GA</p>
+          </div>
+        </div>
+        <div style="margin-top:1.1rem"><a class="plinks" style="display:inline-block" href="cv.pdf"><span style="font-family:var(--mono);font-size:.78rem;color:var(--field);border-bottom:1px solid transparent">Earlier presentations on the CV &rarr;</span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TEACHING, SERVICE, SKILLS ===================== -->
+  <section id="teaching">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Teaching, service &amp; skills</p>
+        <h2>Beyond research</h2>
+        <p>Teaching statement and evaluations available on request.</p>
+      </div>
+
+      <div class="cols">
+        <div class="reveal">
+          <div class="block">
+            <p class="h3">Teaching assistant &middot; University of Georgia</p>
+            <ul class="listing">
+              <li><span class="t">Analytical &amp; Computational Tools for Applied Economics</span><span class="d">2023&ndash;2024</span></li>
+              <li><span class="t">Quantitative Methods for Agribusiness Management</span><span class="d">2022</span></li>
+            </ul>
+          </div>
+          <div class="block">
+            <p class="h3">Service &amp; leadership</p>
+            <ul class="listing">
+              <li><span class="t">President, Graduate Student Association</span><span class="d">Dept. of Ag. &amp; Applied Economics, UGA &middot; 2025&ndash;2026</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="block">
+            <p class="h3">Grants &amp; awards</p>
+            <ul class="listing">
+              <li><span class="t">CAES Graduate International Travel Award &middot; $2,000</span><span class="d">University of Georgia &middot; 2025</span></li>
+              <li><span class="t">John Spencer Research Grant &middot; $1,500</span><span class="d">UGA River Basin Center &middot; 2025</span></li>
+              <li><span class="t">Outstanding Teaching Assistant Award</span><span class="d">Center for Teaching &amp; Learning, UGA &middot; 2024</span></li>
+            </ul>
+          </div>
+          <div class="block">
+            <p class="h3">Methods &amp; tools</p>
+            <div class="tags" style="margin-bottom:1.2rem">
+              <span>R</span><span>MATLAB</span><span>ArcGIS</span><span>Google Earth Pro</span><span>DSSAT</span><span>Qualtrics</span><span>ODK</span><span>Dedoose</span>
+            </div>
+            <p class="h3">Languages</p>
+            <p style="font-size:.95rem;color:var(--muted);margin:0">Bengali (native) &middot; English &amp; Hindi (fluent) &middot; Gujarati (conversational) &middot; Punjabi (basic)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section id="contact">
+    <svg class="contours" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="1.4">
+        <path d="M-40 90 C 260 20,440 170,690 100 S 1080 10,1260 110"/>
+        <path d="M-40 180 C 240 110,460 250,700 180 S 1080 100,1260 200"/>
+        <path d="M-40 280 C 250 210,450 350,690 280 S 1090 190,1260 300"/>
+      </g>
+    </svg>
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom:8px">
+        <p class="eyebrow">Contact</p>
+        <h2>Let's talk</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="reveal">
+          <p>I'm on the 2026&ndash;2027 job market for positions in academic departments, government agencies, and policy and research institutions. Email is the best way to reach me &mdash; I'm glad to share working papers, slides, or replication materials.</p>
+          <p style="margin-top:1rem;font-family:var(--mono);font-size:.84rem;color:var(--wheat)">
+            305 C, Conner Hall<br>
+            University of Georgia<br>
+            Athens, GA 30602
+          </p>
+        </div>
+        <ul class="clinks reveal">
+          <li><a href="mailto:kuhelika.ghosh@uga.edu"><span><span class="k">EMAIL</span><br>kuhelika.ghosh@uga.edu</span><span class="arr">&rarr;</span></a></li>
+          <li><a href="https://scholar.google.com/citations?user=fj7_zEsAAAAJ&amp;hl=en"><span><span class="k">GOOGLE SCHOLAR</span><br>Publications &amp; citations</span><span class="arr">&rarr;</span></a></li>
+          <li><a href="https://www.linkedin.com/in/kuhelika-ghosh-irma/"><span><span class="k">LINKEDIN</span><br>Profile</span><span class="arr">&rarr;</span></a></li>
+          <li><a href="cv.pdf"><span><span class="k">CV</span><br>Download PDF</span><span class="arr">&rarr;</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span>&copy; 2026 Kuhelika Ghosh</span>
+    <span>Last updated June 2026</span>
+    <span>Agricultural &amp; Applied Economics &middot; University of Georgia</span>
+  </div>
+</footer>
+
+<script>
+  const btn = document.querySelector('.menu-btn');
+  const links = document.getElementById('navlinks');
+  btn.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  });
+  links.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => { links.classList.remove('open'); btn.setAttribute('aria-expanded', false); })
+  );
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const els = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    els.forEach(e => e.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(e => io.observe(e));
+  }
+</script>
+</body>
+</html>
